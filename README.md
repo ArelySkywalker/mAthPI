@@ -1,3 +1,1 @@
-# Getting Started With Gulp
-
-Gulp example app for the tutorial
+# Math Quiz off opentdb API
