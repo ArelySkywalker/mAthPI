@@ -26,7 +26,7 @@ var game = {
         },
         count: function() {
             game.timer.time--;
-            if(game.timer.time === 0) {
+            if (game.timer.time === 0) {
                 // display timeout modal
                 game.answerModal(1);
             } else {
@@ -34,8 +34,8 @@ var game = {
             }
         }
     },
-    answerModal: function answerModal (result) {
-        switch(result) {
+    answerModal: function answerModal(result) {
+        switch (result) {
             case 1:
                 $('#answer-modal').text('out of time! - correct answer: ' + game.answer);
                 break;
@@ -54,13 +54,13 @@ var game = {
         game.timer.stop();
         setTimeout(function() {
             $('#answerModal').modal('hide');
-            if(game.questions.length) {
+            if (game.questions.length) {
                 game.question = game.questions.pop();
                 game.askQuestion();
             } else {
                 game.reset();
             }
-        },3000);
+        }, 3000);
     },
     // reset game object for new round
     reset: function reset() {
@@ -71,7 +71,7 @@ var game = {
         question = {};
         options = [];
         randomizedOptions = [];
-        $('#intro').html('final score: ' + game.score + '/' + game.round * 10 + '<p>play another round?</p>');
+        $('#intro').html('final score: ' + game.score + '/' + game.round * 23 + '<p>play another round?</p>');
         // display start modal
         $('#startModal').modal('show');
         game.round++;
@@ -109,9 +109,9 @@ var game = {
     // takes array and returns new array with randomized order
     randomizeOptions: function randomizeOptions() {
         game.randomizedOptions = [];
-        for(var i = game.options.length; i > 0; i--) {
+        for (var i = game.options.length; i > 0; i--) {
             var randomChoice = Math.floor(Math.random() * i);
-            var option = game.options.splice(randomChoice,1);
+            var option = game.options.splice(randomChoice, 1);
             game.randomizedOptions.push(option[0]);
         }
     },
@@ -134,12 +134,14 @@ var game = {
         game.randomizeOptions();
         // add answer choices to page
         game.randomizedOptions.forEach(function(e) {
-            if(e === game.answer) {
+            if (e === game.answer) {
                 var newButton = $('<button/>', {
                     html: e,
-                    data: {name: e},
+                    data: {
+                        name: e
+                    },
                     class: 'btn-secondary btn-lg option correct',
-                    click: function () {
+                    click: function() {
                         // increment score
                         game.score++;
                         // display correct modal
@@ -149,9 +151,11 @@ var game = {
             } else {
                 var newButton = $('<button/>', {
                     html: e,
-                    data: {name: e},
+                    data: {
+                        name: e
+                    },
                     class: 'btn-secondary btn-lg option wrong',
-                    click: function () {
+                    click: function() {
                         // display incorret modal
                         game.answerModal(3);
                     }
@@ -167,7 +171,7 @@ var game = {
         // display start modal
         $('#startModal').modal('show');
         // set event listener on play button
-        $('#play').on('click',function() {
+        $('#play').on('click', function() {
             // get key
             game.getKey();
             // getQuestions - this fires askQuestion when done
